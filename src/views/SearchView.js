@@ -1,7 +1,9 @@
 function SearchView() {
 
     return (
-        <div>SearchView!</div>
+        <div className="app">
+            SearchView!
+        </div>
     );
 }
 
