@@ -1,4 +1,33 @@
-function Book({ book }) {
+
+function SelectShelf({ book, isNoneAllowed, updateBookShelf }) {
+
+    return (
+        <div className="book-shelf-changer">
+            <select
+                value={book.shelf}
+                onChange={(event) => {
+                    console.log(event.target.value)
+                    if (book.shelf !== event.target.value) {
+                        updateBookShelf(book.id, event.target.value);
+                    }
+
+                }}
+            >
+                <option value="none" disabled>
+                    Move to...
+                </option>
+                <option value="currentlyReading">
+                    Currently Reading
+                </option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                {isNoneAllowed && <option value="none">None</option>}
+            </select>
+        </div>
+    )
+}
+
+function Book({ book, updateBookShelf }) {
 
     return (
         <div className="book">
@@ -11,19 +40,10 @@ function Book({ book }) {
                         backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
                     }}
                 ></div>
-                {/* <div className="book-shelf-changer">
-                    <select>
-                        <option value="none" disabled>
-                            Move to...
-                        </option>
-                        <option value="currentlyReading">
-                            Currently Reading
-                        </option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
-                </div> */}
+                <SelectShelf
+                    book={book}
+                    updateBookShelf={updateBookShelf}
+                />
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">
@@ -32,31 +52,37 @@ function Book({ book }) {
         </div>);
 }
 
-function BooksGrid({ books }) {
+function BooksGrid({ books, updateBookShelf }) {
     return (
         <ol className="books-grid">
             {books.map((book) =>
             (
                 <li key={book.id}>
-                    <Book book={book} />
+                    <Book
+                        book={book}
+                        updateBookShelf={updateBookShelf}
+                    />
                 </li>
             ))}
         </ol>
     )
 }
 
-function Bookshelf({ books, shelfTitle }) {
+function Bookshelf({ books, shelfTitle, updateBookShelf }) {
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{shelfTitle}</h2>
             <div className="bookshelf-books">
-                <BooksGrid books={books} />
+                <BooksGrid
+                    books={books}
+                    updateBookShelf={updateBookShelf}
+                />
             </div>
         </div>
     );
 }
 
-function MainView({ myBooks }) {
+function MainView({ myBooks, updateBookShelf }) {
 
     const setShowSearchpage = () => { }
     const showSearchPage = () => { }
@@ -76,18 +102,21 @@ function MainView({ myBooks }) {
                         <Bookshelf
                             books={booksCurrentlyReading}
                             shelfTitle="Currently Reading"
+                            updateBookShelf={updateBookShelf}
                         />
                     </div>
                     <div>
                         <Bookshelf
                             books={booksWantToRead}
                             shelfTitle="Want to Read"
+                            updateBookShelf={updateBookShelf}
                         />
                     </div>
                     <div>
                         <Bookshelf
                             books={booksRead}
                             shelfTitle="Read"
+                            updateBookShelf={updateBookShelf}
                         />
                     </div>
                 </div>
