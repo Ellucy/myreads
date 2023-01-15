@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./App.css";
-import * as BooksAPI from './BooksAPI'
-import MainView from "./views/MainView";
-import SearchView from "./views/SearchView";
+import "../App.css";
+import * as BooksAPI from "../BooksAPI"
+import MainView from "./MainView";
+import SearchView from "./SearchView";
 
 
 function App() {
