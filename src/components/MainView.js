@@ -1,9 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import Bookshelf from "./Bookshelf";
 
 function MainView({ myBooks, updateBookShelf }) {
-
-    const setShowSearchpage = () => { }
-    const showSearchPage = () => { }
+    let navigate = useNavigate();
 
     const booksCurrentlyReading = myBooks.filter((b) => b.shelf === "currentlyReading");
     const booksWantToRead = myBooks.filter((b) => b.shelf === "wantToRead");
@@ -39,7 +38,7 @@ function MainView({ myBooks, updateBookShelf }) {
                     </div>
                 </div>
                 <div className="open-search">
-                    <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
+                    <a onClick={() => { navigate("/search"); }}>Add a book</a>
                 </div>
             </div>
         </div>
