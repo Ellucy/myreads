@@ -1,6 +1,6 @@
 import SelectShelf from "./SelectShelf";
 
-function Book({ book, updateBookShelf }) {
+function Book({ book, updateBookShelf, isNoneAllowed }) {
 
     return (
         <div className="book">
@@ -16,11 +16,12 @@ function Book({ book, updateBookShelf }) {
                 <SelectShelf
                     book={book}
                     updateBookShelf={updateBookShelf}
+                    isNoneAllowed={isNoneAllowed}
                 />
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">
-                {book.authors.join(', ')}
+                {book.authors && book.authors.join(', ')}
             </div>
         </div>);
 }

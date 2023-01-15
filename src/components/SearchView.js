@@ -1,7 +1,70 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import * as BooksAPI from "../BooksAPI";
+import BooksGrid from "./BooksGrid";
 
-function SearchView() {
+function SearchView({ myBooks, updateBookShelf }) {
     let navigate = useNavigate();
+
+    const [msg, setMsg] = useState("");
+    const [searchStr, setSearchStr] = useState("");
+    const [searchResults, setSearchResults] = useState(null);
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        const searchStrTrimmed = searchStr.trim();
+
+        const searchBooks = async () => {
+            try {
+                const res = await BooksAPI.search(searchStrTrimmed, 100);
+                setSearchResults(res)
+
+            } catch (error) {
+                setSearchResults(null);
+            }
+        };
+
+        if (searchStrTrimmed) {
+            searchBooks();
+        } else {
+            setBooks([]);
+        }
+    }, [searchStr]);
+
+    useEffect(() => {
+        if (searchResults instanceof Array && searchResults.length) {
+            setMsg("");
+            const myBooksGroupedObj = myBooks.reduce((acc, curr) => {
+                acc[curr.id] = curr;
+                return acc;
+            }, {});
+
+            const prepRes = searchResults.map((b) => {
+
+                if (myBooksGroupedObj[b.id]) {
+                    b.shelf = myBooksGroupedObj[b.id].shelf;
+                } else {
+                    b.shelf = "none";
+                }
+                return b;
+            });
+
+            setBooks(prepRes);
+            return;
+        }
+
+        setBooks([]);
+
+        if (searchResults instanceof Array && !searchResults.length) {
+            setMsg("No results");
+            return;
+        }
+
+        if (searchResults === Object(searchResults) && searchResults.error) {
+            setMsg("No results: " + searchResults.error);
+        }
+
+    }, [myBooks, searchResults]);
 
     return (
         <div className="app">
@@ -17,11 +80,25 @@ function SearchView() {
                         <input
                             type="text"
                             placeholder="Search by title, author, or ISBN"
+                            value={searchStr}
+                            onChange={(event) => {
+                                setSearchStr(event.target.value);
+                            }}
                         />
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    {!!msg &&
+                        (<p>{msg}</p>)}
+
+                    {!!books.length && (
+                        <BooksGrid
+                            books={books}
+                            updateBookShelf={updateBookShelf}
+                            isNoneAllowed
+                        />
+                    )}
+
                 </div>
             </div>
         </div >

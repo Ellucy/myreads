@@ -42,7 +42,13 @@ function App() {
           />}
 
       />
-      <Route path="/search" element={<SearchView />} />
+      <Route
+        path="/search"
+        element={
+          <SearchView
+            myBooks={books}
+            updateBookShelf={updateBookShelf}
+          />} />
     </Routes>
   );
 

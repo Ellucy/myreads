@@ -5,11 +5,9 @@ function SelectShelf({ book, isNoneAllowed, updateBookShelf }) {
             <select
                 value={book.shelf}
                 onChange={(event) => {
-                    console.log(event.target.value)
                     if (book.shelf !== event.target.value) {
                         updateBookShelf(book.id, event.target.value);
                     }
-
                 }}
             >
                 <option value="none" disabled>

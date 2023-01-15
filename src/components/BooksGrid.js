@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-function BooksGrid({ books, updateBookShelf }) {
+function BooksGrid({ books, updateBookShelf, isNoneAllowed }) {
     return (
         <ol className="books-grid">
             {books.map((book) =>
@@ -9,6 +9,7 @@ function BooksGrid({ books, updateBookShelf }) {
                     <Book
                         book={book}
                         updateBookShelf={updateBookShelf}
+                        isNoneAllowed={isNoneAllowed}
                     />
                 </li>
             ))}
