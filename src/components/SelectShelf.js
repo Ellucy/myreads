@@ -18,7 +18,7 @@ function SelectShelf({ book, isNoneAllowed, updateBookShelf }) {
                 </option>
                 <option value="wantToRead">Want to Read</option>
                 <option value="read">Read</option>
-                {isNoneAllowed && <option value="none">None</option>}
+                {isNoneAllowed && book.shelf !== "none" && <option value="none">None</option>}
             </select>
         </div>
     )
