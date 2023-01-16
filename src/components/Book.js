@@ -6,12 +6,19 @@ function Book({ book, updateBookShelf, isNoneAllowed }) {
         <div className="book">
             <div className="book-top">
                 <div
-                    className="book-cover"
-                    style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url("${book.imageLinks.smallThumbnail}")`,
-                    }}
+                    className={
+                        book.imageLinks
+                            ? "book-cover"
+                            : "book-cover missing-image"
+
+                    }
+                    style={
+                        book.imageLinks ?
+                            {
+                                width: 128,
+                                height: 193,
+                                backgroundImage: `url(${book.imageLinks.thumbnail})`
+                            } : {}}
                 ></div>
                 <SelectShelf
                     book={book}

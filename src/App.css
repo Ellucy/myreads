@@ -65,6 +65,14 @@ body,
   font-size: 0;
 }
 
+.missing-image {
+  background-image: url("./icons/no-cover.svg") !important;
+  width: 128px;
+  height: 193px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
 /* search page */
 
 .search-books-bar {
