@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Bookshelf from "./Bookshelf";
 
@@ -45,5 +46,10 @@ function MainView({ myBooks, updateBookShelf }) {
 
     );
 }
+
+MainView.propTypes = {
+    myBooks: PropTypes.array.isRequired,
+    updateBookShelf: PropTypes.func.isRequired,
+};
 
 export default MainView;

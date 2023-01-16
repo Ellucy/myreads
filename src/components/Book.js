@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import SelectShelf from "./SelectShelf";
 
 function Book({ book, updateBookShelf, isNoneAllowed }) {
@@ -32,5 +33,11 @@ function Book({ book, updateBookShelf, isNoneAllowed }) {
             </div>
         </div>);
 }
+
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    updateBookShelf: PropTypes.func.isRequired,
+    isNoneAllowed: PropTypes.bool,
+};
 
 export default Book;

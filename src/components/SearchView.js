@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as BooksAPI from "../BooksAPI";
@@ -104,5 +105,10 @@ function SearchView({ myBooks, updateBookShelf }) {
         </div >
     );
 }
+
+SearchView.propTypes = {
+    myBooks: PropTypes.array.isRequired,
+    updateBookShelf: PropTypes.func.isRequired,
+};
 
 export default SearchView;
